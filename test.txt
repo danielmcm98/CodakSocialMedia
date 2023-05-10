@@ -1,0 +1,80 @@
+import React, { useState } from "react";
+import { NavigationContainer, View, Text,  Button } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "react-native-vector-icons/FontAwesome";
+
+// Import your screen components
+import HomeScreen from "./screens/HomeScreen";
+import UploadScreen from "./screens/UploadScreen";
+import SocialScreen from "./screens/SocialScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
+
+const Tab = createBottomTabNavigator();
+
+function App() {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [showSignup, setShowSignup] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  return (
+    <NavigationContainer>
+      {/* {isLoggedIn ? ( */}
+        <Tab.Navigator>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="home" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Upload"
+            component={UploadScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="camera" color={color} size={size} />
+              ),
+            }}
+          />
+
+          <Tab.Screen
+            name="Friends"
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="users" color={color} size={size} />
+              ),
+            }}
+            component={SocialScreen}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="user" color={color} size={size} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      {/* ) : ( */}
+        <>
+          <LoginScreen handleLogin={handleLogin} />
+          <View>
+            <Text>Don't have an account? </Text>
+            <Button title="Sign up" onPress={() => setShowSignup(true)} />
+          </View>
+        </>
+      {/* )} */}
+      {/* {showSignup && <SignupScreen />} */}
+    </NavigationContainer>
+  );
+}
+
+export default App;
